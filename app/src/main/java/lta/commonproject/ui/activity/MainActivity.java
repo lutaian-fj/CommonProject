@@ -1,8 +1,6 @@
 package lta.commonproject.ui.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -15,16 +13,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import lta.commonproject.R;
 import lta.commonproject.data.entity.FirstEventbusEntity;
 import lta.commonproject.data.entity.SecondEventbusEntity;
 import lta.commonproject.ui.view.MyView;
-import lta.commonproject.util.BitmapHelper;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -54,17 +48,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //        mImageView.setImageBitmap(BitmapHelper.getImage(getResources(), R.mipmap.picture));
 
 
-        URL url = null;
-        try {
-            url = new URL("http://www.2345.com/girl/mm/mnjx9.jpg");
-            Bitmap bitmap = BitmapFactory.decodeStream(url.openStream());
-            mImageView.setImageBitmap(bitmap);
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        URL url = null;
+//        try {
+//            url = new URL("http://www.2345.com/girl/mm/mnjx9.jpg");
+//            Bitmap bitmap = BitmapFactory.decodeStream(url.openStream());
+//            mImageView.setImageBitmap(bitmap);
+//
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 
 //        try {
