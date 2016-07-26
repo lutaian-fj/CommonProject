@@ -1,10 +1,11 @@
 package lta.commonproject.ui.activity;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -13,11 +14,12 @@ import org.greenrobot.eventbus.EventBus;
 import java.lang.ref.WeakReference;
 
 import lta.commonproject.R;
-import lta.commonproject.data.entity.FirstEventbusEntity;
+import lta.commonproject.data.db.DBHelper;
+import lta.commonproject.data.db.DBManager;
 import lta.commonproject.data.entity.SecondEventbusEntity;
 
 public class SecondActivity extends BaseActivity implements View.OnClickListener{
-
+    private Context mContext;
     private Button mFirstBtn;
     private Button mSecondBtn;
     @Override
@@ -31,26 +33,40 @@ public class SecondActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
+    protected void initData() {
+        super.initData();
+        mContext = this;
+    }
+
+    @Override
     public void onClick(View view) {
         if(view == mFirstBtn) {
 //            FirstEventbusEntity firstEventbusEntity = new FirstEventbusEntity();
 //            firstEventbusEntity.setTitle("第一个Eventbus");
 //            EventBus.getDefault().post(firstEventbusEntity); // 发送Eventbus
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Thread.sleep(3000);
-                        handler = new MyHandler(SecondActivity.this,Looper.getMainLooper());
-                        Message message = handler.obtainMessage();
-                        message.obj = "测试异步线程";
-                        handler.sendMessage(message);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }).start();
+            /******************************************************************************/
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        Thread.sleep(3000);
+//                        handler = new MyHandler(SecondActivity.this,Looper.getMainLooper());
+//                        Message message = handler.obtainMessage();
+//                        message.obj = "测试异步线程";
+//                        handler.sendMessage(message);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                }
+//            }).start();
+            /******************************************************************************/
+            DBHelper dbHelper = new DBHelper(mContext);
+            DBManager.initialize(mContext,dbHelper);
+            DBManager dbManager = DBManager.getInstance();
+            SQLiteDatabase database = dbManager.getWritableDB();
+            String sql = "insert into info(name,student_num) values('卢泰桉','890425')";
+            database.execSQL(sql);
 
         }else if(view == mSecondBtn) {
             SecondEventbusEntity secondEventbusEntity = new SecondEventbusEntity();
@@ -81,6 +97,5 @@ public class SecondActivity extends BaseActivity implements View.OnClickListener
 
         }
     }
-
 
 }
