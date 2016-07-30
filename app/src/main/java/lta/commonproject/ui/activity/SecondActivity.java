@@ -1,21 +1,20 @@
 package lta.commonproject.ui.activity;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.lang.ref.WeakReference;
-
 import lta.commonproject.R;
-import lta.commonproject.data.db.DBHelper;
-import lta.commonproject.data.db.DBManager;
 import lta.commonproject.data.entity.SecondEventbusEntity;
 
 public class SecondActivity extends BaseActivity implements View.OnClickListener{
@@ -61,12 +60,13 @@ public class SecondActivity extends BaseActivity implements View.OnClickListener
 //                }
 //            }).start();
             /******************************************************************************/
-            DBHelper dbHelper = new DBHelper(mContext);
-            DBManager.initialize(mContext,dbHelper);
-            DBManager dbManager = DBManager.getInstance();
-            SQLiteDatabase database = dbManager.getWritableDB();
-            String sql = "insert into info(name,student_num) values('卢泰桉','890425')";
-            database.execSQL(sql);
+//            DBHelper dbHelper = new DBHelper(mContext);
+//            DBManager.initialize(mContext,dbHelper);
+//            DBManager dbManager = DBManager.getInstance();
+//            SQLiteDatabase database = dbManager.getWritableDB();
+//            String sql = "insert into info(name,student_num) values('卢泰桉','890425')";
+//            database.execSQL(sql);
+
 
         }else if(view == mSecondBtn) {
             SecondEventbusEntity secondEventbusEntity = new SecondEventbusEntity();
@@ -89,10 +89,10 @@ public class SecondActivity extends BaseActivity implements View.OnClickListener
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             SecondActivity weakActivity = mActivity.get();
-//            if(!weakActivity.isFinishing()) {
+            if(!weakActivity.isFinishing()) {
                 if (weakActivity != null) {
                     weakActivity.toast(msg.obj.toString());
-//                }
+                }
             }
 
         }
