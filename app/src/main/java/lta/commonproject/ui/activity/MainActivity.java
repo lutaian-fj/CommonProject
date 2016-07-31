@@ -1,35 +1,31 @@
 package lta.commonproject.ui.activity;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.text.TextUtils;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.lang.ref.WeakReference;
-
 import lta.commonproject.R;
 import lta.commonproject.data.entity.FirstEventbusEntity;
 import lta.commonproject.data.entity.SecondEventbusEntity;
-import lta.commonproject.ui.view.MyView;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
-
-    private Button mButton;
-    private Button mStartThread;
-    private ImageView mImageView;
-    private MyView myView;
-    private Context mContext = this;
+public class MainActivity extends BaseActivity implements View.OnClickListener ,Toolbar.OnMenuItemClickListener{
+    public static final String TAG = "MainActivity";
+    private Context mContext;
+    private Toolbar mToolbar;
+    private NavigationView mNavigationView;
+    private DrawerLayout mDrawerLayout;
+    private MenuItem mOldItem;
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_main;
@@ -38,10 +34,64 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initView() {
         super.initView();
-        mButton = (Button) findViewById(R.id.btn_jump);
-        mStartThread = (Button) findViewById(R.id.btn_new_thread);
-        mImageView = (ImageView) findViewById(R.id.iv_photo);
-        myView = (MyView) findViewById(R.id.myView);
+        mContext = this;
+        View view = findViewById(R.id.first_include);
+        TextView textView1 = (TextView) view.findViewById(R.id.textView);
+        textView1.setText("星期五");
+        View view2 = findViewById(R.id.second_include);
+        TextView textView2 = (TextView) view2.findViewById(R.id.textView2);
+        textView2.setText("可能会下雨");
+        mToolbar = (Toolbar) this.findViewById(R.id.tb);
+        mToolbar.setTitle("第一个Toolbar"); // 设置主标题
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.white)); //设置主标题颜色
+//        mToolbar.setTitleTextAppearance(); 设置字体大小
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+            mToolbar.setNavigationIcon(R.mipmap.ic_menu_white);  // 设置导航栏图标
+//            mToolbar.setLogo(R.mipmap.ic_launcher); // 设置app logo
+            mToolbar.inflateMenu(R.menu.menu_main_right); // 设置右上角的填充菜单（貌似没作用啊！！！！）
+
+        }
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDrawerLayout.openDrawer(mNavigationView);
+            }
+        });
+        mToolbar.setOnMenuItemClickListener(this);
+
+
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.dl_main);
+        mNavigationView = (NavigationView) findViewById(R.id.nv_left);
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                if (mOldItem != null)
+                    mOldItem.setChecked(false);
+                switch (item.getItemId()) {
+                    case R.id.menu_main_home:
+                        Log.e(TAG, "----->>首页");
+                        break;
+                    case R.id.menu_main_my_home:
+                        Log.e(TAG, "---->>个人首页");
+                        break;
+                    case R.id.menu_main_all_home:
+                        Log.e(TAG, "---->>公共首页");
+                        break;
+                    case R.id.menu_main_info:
+                        Log.e(TAG, "---->>个人信息");
+                        break;
+                    default:
+                        break;
+                }
+
+                mOldItem = item;
+                item.setChecked(true);
+                mDrawerLayout.closeDrawers();
+                return true;
+            }
+        });
     }
 
     @Override
@@ -53,85 +103,34 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void initEvent() {
         super.initEvent();
         EventBus.getDefault().register(this);  // 注册Eventbus
-        mButton.setOnClickListener(this);
-        mStartThread.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_jump:
-                Intent intent = new Intent(mContext, SecondActivity.class);
-                startActivity(intent);
-//                Intent intent = new Intent(this, AppService.class);
-//                startService(intent);
-                break;
-            case R.id.btn_new_thread:
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Message message = new Message();
-//                        message.obj = "异步线程回来的数据";
-//                        handler.sendMessage(message);
-//                    }
-//                }).start();
-
-
-
-                MyThread thread = new MyThread();
-                thread.start();
-
-                break;
-            default:
-                break;
-        }
-
-    }
-
-    public class MyThread extends Thread {
-        @Override
-        public void run() {
-            super.run();
-            Looper curentLooper = Looper.myLooper();
-            Looper mainLooper = Looper.getMainLooper();
-            String msg;
-            if (curentLooper == null) {
-                handler = new MyHandler(MainActivity.this, mainLooper);
-                msg = "curLooper is null";
-            } else {
-                handler = new MyHandler(MainActivity.this, curentLooper);
-                msg = "This is curLooper";
-            }
-            handler.removeMessages(0);
-            Message m = handler.obtainMessage(1, 1, 1, msg);
-            handler.sendMessage(m);
-            m.sendToTarget();
-
 
         }
     }
 
-    private MyHandler handler = null;
-
-    private static class MyHandler extends Handler {
-        private final WeakReference<MainActivity> mActivity;
-
-        public MyHandler(MainActivity activity, Looper looper) {
-            super(looper);
-            this.mActivity = new WeakReference<MainActivity>(activity);
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_edit:
+                Toast.makeText(this, "查找按钮", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_share:
+                Toast.makeText(this, "分享按钮", Toast.LENGTH_SHORT).show();
+                break;
         }
 
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            MainActivity weakActivity = mActivity.get();
-            if(!weakActivity.isFinishing()) {
-                if (weakActivity != null) {
-                    weakActivity.toast(msg.obj.toString());
-                }
-            }
+        return true;
+    }
 
-        }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main_right, menu);
+        return true;
     }
 
     /**
@@ -154,7 +153,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this); // 销毁Eventbus
-        handler.removeCallbacksAndMessages(null);
     }
 
 }
