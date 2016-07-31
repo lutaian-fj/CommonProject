@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
     <item
-        android:id="@+id/action_edit"
+        android:id="@+id/action_search"
         android:icon="@drawable/abc_ic_search_api_mtrl_alpha"
         android:orderInCategory="80"
         android:title="查找"
@@ -20,5 +20,10 @@
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="设置"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_settings_2"
+        android:orderInCategory="100"
+        android:title="系统设置"
         app:showAsAction="never" />
 </menu>

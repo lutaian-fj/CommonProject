@@ -26,6 +26,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
     private MenuItem mOldItem;
+    private MenuItem mSearchMenu;
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_main;
@@ -42,7 +43,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
         TextView textView2 = (TextView) view2.findViewById(R.id.textView2);
         textView2.setText("可能会下雨");
         mToolbar = (Toolbar) this.findViewById(R.id.tb);
-        mToolbar.setTitle("第一个Toolbar"); // 设置主标题
+//        mToolbar.setTitle("第一个Toolbar"); // 设置主标题
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white)); //设置主标题颜色
 //        mToolbar.setTitleTextAppearance(); 设置字体大小
         if (mToolbar != null) {
@@ -59,7 +60,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
             }
         });
         mToolbar.setOnMenuItemClickListener(this);
-
+//        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(mContext, "点击", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.dl_main);
@@ -70,9 +76,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                 if (mOldItem != null)
                     mOldItem.setChecked(false);
                 switch (item.getItemId()) {
-                    case R.id.menu_main_home:
-                        Log.e(TAG, "----->>首页");
-                        break;
                     case R.id.menu_main_my_home:
                         Log.e(TAG, "---->>个人首页");
                         break;
@@ -116,11 +119,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_edit:
+            case R.id.action_search:
                 Toast.makeText(this, "查找按钮", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_share:
                 Toast.makeText(this, "分享按钮", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_settings:
+                Toast.makeText(this, "设置一", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_settings_2:
+                Toast.makeText(this, "设置二", Toast.LENGTH_SHORT).show();
+                break;
+            default:
                 break;
         }
 
@@ -129,7 +140,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main_right, menu);
+        getMenuInflater().inflate(R.menu.menu_main_right, menu);  // 添加Toolbar右边菜单
+        mSearchMenu = menu.findItem(R.id.action_search);   // 获取右边三个按钮对应的按钮，可用来控制隐藏情况
         return true;
     }
 
