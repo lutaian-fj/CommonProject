@@ -1,13 +1,16 @@
 package lta.commonproject.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -26,7 +29,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button mStartThread;
     private ImageView mImageView;
     private MyView myView;
-
+    private Context mContext = this;
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_main;
@@ -39,34 +42,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mStartThread = (Button) findViewById(R.id.btn_new_thread);
         mImageView = (ImageView) findViewById(R.id.iv_photo);
         myView = (MyView) findViewById(R.id.myView);
-        myView.setText("测试自定义View");
     }
 
     @Override
     protected void initData() {
         super.initData();
-//        mImageView.setImageBitmap(BitmapHelper.getImage(getResources(), R.mipmap.picture));
-
-
-//        URL url = null;
-//        try {
-//            url = new URL("http://www.2345.com/girl/mm/mnjx9.jpg");
-//            Bitmap bitmap = BitmapFactory.decodeStream(url.openStream());
-//            mImageView.setImageBitmap(bitmap);
-//
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-
-//        try {
-//            Bitmap bitmap = BitmapHelper.getBitmap("http://www.2345.com/girl/mm/mnjx9.jpg");
-//            mImageView.setImageBitmap(bitmap);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     @Override
@@ -81,7 +61,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_jump:
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                Intent intent = new Intent(mContext, SecondActivity.class);
                 startActivity(intent);
 //                Intent intent = new Intent(this, AppService.class);
 //                startService(intent);
@@ -95,6 +75,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //                        handler.sendMessage(message);
 //                    }
 //                }).start();
+
+
+
                 MyThread thread = new MyThread();
                 thread.start();
 
