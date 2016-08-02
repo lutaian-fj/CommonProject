@@ -78,6 +78,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                 switch (item.getItemId()) {
                     case R.id.menu_main_my_home:
                         Log.e(TAG, "---->>个人首页");
+                        SecondActivity.launch(MainActivity.this);
                         break;
                     case R.id.menu_main_all_home:
                         Log.e(TAG, "---->>公共首页");

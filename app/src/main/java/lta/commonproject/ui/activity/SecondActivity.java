@@ -1,26 +1,34 @@
 package lta.commonproject.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.lang.ref.WeakReference;
-import lta.commonproject.R;
-import lta.commonproject.data.entity.SecondEventbusEntity;
 
-public class SecondActivity extends BaseActivity implements View.OnClickListener{
+import lta.commonproject.R;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
+public class SecondActivity extends BaseActivity implements View.OnClickListener {
     private Context mContext;
     private Button mFirstBtn;
     private Button mSecondBtn;
+
+    public static void launch(Context context) {
+        Intent intent = new Intent(context,SecondActivity.class);
+        context.startActivity(intent);
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,27 +47,28 @@ public class SecondActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        if(view == mFirstBtn) {
+        if (view == mFirstBtn) {
 //            FirstEventbusEntity firstEventbusEntity = new FirstEventbusEntity();
 //            firstEventbusEntity.setTitle("第一个Eventbus");
 //            EventBus.getDefault().post(firstEventbusEntity); // 发送Eventbus
-            /******************************************************************************/
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        Thread.sleep(3000);
-//                        handler = new MyHandler(SecondActivity.this,Looper.getMainLooper());
-//                        Message message = handler.obtainMessage();
-//                        message.obj = "测试异步线程";
-//                        handler.sendMessage(message);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                }
-//            }).start();
-            /******************************************************************************/
+            /**************************启动异步线程****************************************************/
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(3000);
+                        handler = new MyHandler(SecondActivity.this, Looper.getMainLooper());
+                        Message message = handler.obtainMessage(); //从消息池中获取空消息对象，以节省资源
+                        message.obj = "测试异步线程";
+                        handler.sendMessage(message); //该方法会将Message中的Target设置为Handler
+//                        message.sendToTarget();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }).start();
+            /***************************数据库操作***************************************************/
 //            DBHelper dbHelper = new DBHelper(mContext);
 //            DBManager.initialize(mContext,dbHelper);
 //            DBManager dbManager = DBManager.getInstance();
@@ -68,10 +77,43 @@ public class SecondActivity extends BaseActivity implements View.OnClickListener
 //            database.execSQL(sql);
 
 
-        }else if(view == mSecondBtn) {
-            SecondEventbusEntity secondEventbusEntity = new SecondEventbusEntity();
-            secondEventbusEntity.setMessage("第二个Eventbus");
-            EventBus.getDefault().post(secondEventbusEntity);
+        } else if (view == mSecondBtn) {
+//            SecondEventbusEntity secondEventbusEntity = new SecondEventbusEntity();
+//            secondEventbusEntity.setMessage("第二个Eventbus");
+//            EventBus.getDefault().post(secondEventbusEntity);
+            /********************************RxJava实现异步操作**********************************************/
+            Observable.create(new Observable.OnSubscribe<String>() {
+                @Override
+                public void call(Subscriber<? super String> subscriber) {
+                    Log.e("lta", "应该是子线程" + Thread.currentThread().getName());
+                    subscriber.onNext("hahah");
+                }
+            }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+//                            new Action1<String>() {
+//                                @Override
+//                                public void call(String s) {
+//
+//                                }
+//                            }
+                            new Subscriber<String>() {
+                                @Override
+                                public void onCompleted() {
+
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+
+                                @Override
+                                public void onNext(String s) {
+                                    Log.e("lta","应该是主线程"+Thread.currentThread().getName());
+                                }
+                            }
+                    );
+
         }
     }
 
@@ -89,7 +131,7 @@ public class SecondActivity extends BaseActivity implements View.OnClickListener
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             SecondActivity weakActivity = mActivity.get();
-            if(!weakActivity.isFinishing()) {
+            if (!weakActivity.isFinishing()) {
                 if (weakActivity != null) {
                     weakActivity.toast(msg.obj.toString());
                 }
