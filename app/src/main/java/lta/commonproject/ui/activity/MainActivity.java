@@ -78,7 +78,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                 switch (item.getItemId()) {
                     case R.id.menu_main_my_home:
                         Log.e(TAG, "---->>个人首页");
-                        SecondActivity.launch(MainActivity.this);
                         break;
                     case R.id.menu_main_all_home:
                         Log.e(TAG, "---->>公共首页");
@@ -121,6 +120,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
+                SecondActivity.launch(MainActivity.this);
                 Toast.makeText(this, "查找按钮", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_share:

@@ -9,6 +9,9 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import java.lang.ref.WeakReference;
 
@@ -20,8 +23,12 @@ import rx.schedulers.Schedulers;
 
 public class SecondActivity extends BaseActivity implements View.OnClickListener {
     private Context mContext;
-    private Button mFirstBtn;
-    private Button mSecondBtn;
+//    @Bind(R.id.btn_first)
+    public Button mFirstBtn;
+//    @Bind(R.id.btn_second)
+    public Button mSecondBtn;
+//    @Bind(R.id.imageView)
+    ImageView imageView;
 
     public static void launch(Context context) {
         Intent intent = new Intent(context,SecondActivity.class);
@@ -33,10 +40,15 @@ public class SecondActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+        mContext = this;
         mFirstBtn = (Button) findViewById(R.id.btn_first);
         mSecondBtn = (Button) findViewById(R.id.btn_second);
         mFirstBtn.setOnClickListener(this);
         mSecondBtn.setOnClickListener(this);
+        imageView = (ImageView) findViewById(R.id.imageView);
+        Glide.with(mContext)
+                .load("http://ww3.sinaimg.cn/large/610dc034jw1f6gcxc1t7vj20hs0hsgo1.jpg")
+                .into(imageView);
     }
 
     @Override
