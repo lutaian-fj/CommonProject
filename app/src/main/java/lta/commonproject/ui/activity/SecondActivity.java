@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -49,6 +51,24 @@ public class SecondActivity extends BaseActivity implements View.OnClickListener
         Glide.with(mContext)
                 .load("http://ww3.sinaimg.cn/large/610dc034jw1f6gcxc1t7vj20hs0hsgo1.jpg")
                 .into(imageView);
+
+
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Snackbar.make(view, "Click", Snackbar.LENGTH_LONG)
+//                        .setAction("Close", new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                Toast.makeText(SecondActivity.this,"first floatingActionButton",Toast.LENGTH_SHORT).show();
+//                            }
+//                        }).show();
+                Toast.makeText(SecondActivity.this,"first floatingActionButton",Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     @Override

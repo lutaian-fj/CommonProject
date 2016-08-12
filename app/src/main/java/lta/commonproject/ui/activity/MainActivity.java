@@ -1,6 +1,7 @@
 package lta.commonproject.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +28,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
     private DrawerLayout mDrawerLayout;
     private MenuItem mOldItem;
     private MenuItem mSearchMenu;
+
+    /**
+     * @Title:
+     * @Description: 入口方法
+     * @param:
+     * @return:
+     * @throws:
+     */
+    public static void launch(Context context) {
+        Intent intent = new Intent(context,MainActivity.class);
+        context.startActivity(intent);
+    }
+
+
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_main;
