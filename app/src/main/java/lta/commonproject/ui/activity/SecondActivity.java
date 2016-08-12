@@ -7,7 +7,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,22 +18,19 @@ import com.bumptech.glide.Glide;
 import java.lang.ref.WeakReference;
 
 import lta.commonproject.R;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class SecondActivity extends BaseActivity implements View.OnClickListener {
     private Context mContext;
-//    @Bind(R.id.btn_first)
+    //    @Bind(R.id.btn_first)
     public Button mFirstBtn;
-//    @Bind(R.id.btn_second)
+    //    @Bind(R.id.btn_second)
     public Button mSecondBtn;
-//    @Bind(R.id.imageView)
+    //    @Bind(R.id.imageView)
     ImageView imageView;
+    private FloatingActionButton mFab;
 
     public static void launch(Context context) {
-        Intent intent = new Intent(context,SecondActivity.class);
+        Intent intent = new Intent(context, SecondActivity.class);
         context.startActivity(intent);
 
     }
@@ -49,23 +46,22 @@ public class SecondActivity extends BaseActivity implements View.OnClickListener
         mSecondBtn.setOnClickListener(this);
         imageView = (ImageView) findViewById(R.id.imageView);
         Glide.with(mContext)
-                .load("http://ww3.sinaimg.cn/large/610dc034jw1f6gcxc1t7vj20hs0hsgo1.jpg")
+                .load("http://desk.fd.zol-img.com.cn/t_s960x600c5/g5/M00/02/03/ChMkJ1bKxzGISBR1AALeECdcYq4AALHwQJMUXsAAt4o510.jpg")
                 .into(imageView);
 
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Click", Snackbar.LENGTH_LONG)
-//                        .setAction("Close", new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                Toast.makeText(SecondActivity.this,"first floatingActionButton",Toast.LENGTH_SHORT).show();
-//                            }
-//                        }).show();
-                Toast.makeText(SecondActivity.this,"first floatingActionButton",Toast.LENGTH_SHORT).show();
+                Snackbar.make(view, "点击了FAB", Snackbar.LENGTH_LONG)
+                        .setAction("Close", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(SecondActivity.this,"first floatingActionButton",Toast.LENGTH_SHORT).show();
+                            }
+                        }).show();
+//                Toast.makeText(SecondActivity.this, "first floatingActionButton", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -114,37 +110,45 @@ public class SecondActivity extends BaseActivity implements View.OnClickListener
 //            secondEventbusEntity.setMessage("第二个Eventbus");
 //            EventBus.getDefault().post(secondEventbusEntity);
             /********************************RxJava实现异步操作**********************************************/
-            Observable.create(new Observable.OnSubscribe<String>() {
-                @Override
-                public void call(Subscriber<? super String> subscriber) {
-                    Log.e("lta", "应该是子线程" + Thread.currentThread().getName());
-                    subscriber.onNext("hahah");
-                }
-            }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-//                            new Action1<String>() {
+//            Observable.create(new Observable.OnSubscribe<String>() {
+//                @Override
+//                public void call(Subscriber<? super String> subscriber) {
+//                    Log.e("lta", "应该是子线程" + Thread.currentThread().getName());
+//                    subscriber.onNext("hahah");
+//                }
+//            }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(
+////                            new Action1<String>() {
+////                                @Override
+////                                public void call(String s) {
+////
+////                                }
+////                            }
+//                            new Subscriber<String>() {
 //                                @Override
-//                                public void call(String s) {
+//                                public void onCompleted() {
 //
 //                                }
+//
+//                                @Override
+//                                public void onError(Throwable e) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onNext(String s) {
+//                                    Log.e("lta","应该是主线程"+Thread.currentThread().getName());
+//                                }
 //                            }
-                            new Subscriber<String>() {
-                                @Override
-                                public void onCompleted() {
+//                    );
 
-                                }
 
-                                @Override
-                                public void onError(Throwable e) {
-
-                                }
-
-                                @Override
-                                public void onNext(String s) {
-                                    Log.e("lta","应该是主线程"+Thread.currentThread().getName());
-                                }
-                            }
-                    );
+            /********************************fab显示与隐藏**********************************************/
+            if (mFab.isShown()) {
+                mFab.hide();
+            } else {
+                mFab.show();
+            }
 
         }
     }
