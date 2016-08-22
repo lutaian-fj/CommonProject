@@ -11,6 +11,7 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -18,6 +19,7 @@ import com.bumptech.glide.Glide;
 import java.lang.ref.WeakReference;
 
 import lta.commonproject.R;
+import lta.commonproject.ui.widget.CustomLayout;
 
 public class SecondActivity extends BaseActivity implements View.OnClickListener {
     private Context mContext;
@@ -28,6 +30,10 @@ public class SecondActivity extends BaseActivity implements View.OnClickListener
     //    @Bind(R.id.imageView)
     ImageView imageView;
     private FloatingActionButton mFab;
+
+    private LinearLayout mCustonLayout;
+
+    private CustomLayout mCustom;
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, SecondActivity.class);
@@ -44,12 +50,15 @@ public class SecondActivity extends BaseActivity implements View.OnClickListener
         mSecondBtn = (Button) findViewById(R.id.btn_second);
         mFirstBtn.setOnClickListener(this);
         mSecondBtn.setOnClickListener(this);
+
+
+        /**************************Glide显示图片****************************************************/
         imageView = (ImageView) findViewById(R.id.imageView);
         Glide.with(mContext)
                 .load("http://desk.fd.zol-img.com.cn/t_s960x600c5/g5/M00/02/03/ChMkJ1bKxzGISBR1AALeECdcYq4AALHwQJMUXsAAt4o510.jpg")
                 .into(imageView);
 
-
+        /**************************fab****************************************************/
         mFab = (FloatingActionButton) findViewById(R.id.fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +74,38 @@ public class SecondActivity extends BaseActivity implements View.OnClickListener
 
             }
         });
+
+        /**************************自定义LinearLayout****************************************************/
+//        mCustonLayout = (LinearLayout) findViewById(R.id.layout_custom);
+//        CustomLayout customLayout1 = new CustomLayout(this);
+//        customLayout1.setConfirmBtnClick(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(mContext,"第一个按钮的确定",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        customLayout1.setCancleBtnClick(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(mContext,"第一个按钮的取消",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        mCustonLayout.addView(customLayout1);
+
+        mCustom = (CustomLayout) findViewById(R.id.custom);
+        mCustom.setConfirmBtnClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mContext,"第一个按钮的确定",Toast.LENGTH_SHORT).show();
+            }
+        });
+        mCustom.setCancleBtnClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mContext,"第一个按钮的取消",Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override

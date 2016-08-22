@@ -41,6 +41,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_launcher" />
+
+        <LinearLayout
+            android:id="@+id/layout_custom"
+            android:layout_below="@+id/btn_second"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <lta.commonproject.ui.widget.CustomLayout
+                android:id="@+id/custom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></lta.commonproject.ui.widget.CustomLayout>
+        </LinearLayout>
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
