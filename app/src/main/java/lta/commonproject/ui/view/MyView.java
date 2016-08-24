@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.TextView;
 
 /**
@@ -33,13 +32,13 @@ public class MyView extends TextView {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        mPaint.setColor(Color.YELLOW);
+        int sroke_width =  2;
+        canvas.drawLine(0, 0, this.getWidth() - sroke_width, 0, mPaint);
+        canvas.drawLine(0, 0, 0, this.getHeight() - sroke_width, mPaint);
+        canvas.drawLine(this.getWidth() - sroke_width, 0, this.getWidth() - sroke_width, this.getHeight() - sroke_width, mPaint);
+        canvas.drawLine(0, this.getHeight() - sroke_width, this.getWidth() - sroke_width, this.getHeight() - sroke_width, mPaint);
         super.onDraw(canvas);
-//        mPaint.setColor(Color.YELLOW);
-//        canvas.drawRect(0, 0, getWidth(), getHeight(), mPaint);
-//        mPaint.setColor(Color.BLUE);
-//        mPaint.setTextSize(20);
-//        String text = "Hello View";
-//        canvas.drawText(text, 0, getHeight() / 2, mPaint);
     }
 
     @Override

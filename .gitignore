@@ -8,3 +8,6 @@
 /captures
 /.idea/*.xml
 /.idea/copyright/*.xml
+/.idea
+/.idea/inspectionProfiles
+
