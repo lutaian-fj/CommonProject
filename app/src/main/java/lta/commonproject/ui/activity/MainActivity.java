@@ -139,6 +139,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                 Toast.makeText(this, "查找按钮", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_share:
+                Intent intent = new Intent(MainActivity.this,ThirdActivity.class);
+                startActivity(intent);
                 Toast.makeText(this, "分享按钮", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_settings:
