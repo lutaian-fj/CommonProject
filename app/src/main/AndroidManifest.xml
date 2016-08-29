@@ -18,7 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.SecondActivity" />
+        <activity android:name=".ui.activity.SecondActivity"
+            android:theme="@style/MyDialogStyles">
+
+        </activity>
 
         <service
             android:name=".ui.service.AppService"
