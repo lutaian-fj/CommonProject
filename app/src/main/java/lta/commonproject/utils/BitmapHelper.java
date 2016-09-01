@@ -1,4 +1,4 @@
-package lta.commonproject.util;
+package lta.commonproject.utils;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
