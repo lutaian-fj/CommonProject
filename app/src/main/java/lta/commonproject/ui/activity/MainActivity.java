@@ -3,13 +3,13 @@ package lta.commonproject.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -19,6 +19,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import lta.commonproject.R;
 import lta.commonproject.data.entity.FirstEventbusEntity;
 import lta.commonproject.data.entity.SecondEventbusEntity;
+import lta.commonproject.ui.fragment.PicFragment;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener ,Toolbar.OnMenuItemClickListener{
     public static final String TAG = "MainActivity";
@@ -28,6 +29,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
     private DrawerLayout mDrawerLayout;
     private MenuItem mOldItem;
     private MenuItem mSearchMenu;
+    private PicFragment mPicFragment;
 
     /**
      * @Title:
@@ -51,12 +53,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
     protected void initView() {
         super.initView();
         mContext = this;
-        View view = findViewById(R.id.first_include);
-        TextView textView1 = (TextView) view.findViewById(R.id.textView);
-        textView1.setText("星期五");
-        View view2 = findViewById(R.id.second_include);
-        TextView textView2 = (TextView) view2.findViewById(R.id.textView2);
-        textView2.setText("可能会下雨");
+//        View view = findViewById(R.id.first_include);
+//        TextView textView1 = (TextView) view.findViewById(R.id.textView);
+//        textView1.setText("星期五");
+//        View view2 = findViewById(R.id.second_include);
+//        TextView textView2 = (TextView) view2.findViewById(R.id.textView2);
+//        textView2.setText("可能会下雨");
         mToolbar = (Toolbar) this.findViewById(R.id.tb);
 //        mToolbar.setTitle("第一个Toolbar"); // 设置主标题
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white)); //设置主标题颜色
@@ -92,6 +94,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                     mOldItem.setChecked(false);
                 switch (item.getItemId()) {
                     case R.id.menu_main_my_home:
+                        showFragment(0);
                         Log.e(TAG, "---->>个人首页");
                         break;
                     case R.id.menu_main_all_home:
@@ -115,6 +118,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
     @Override
     protected void initData() {
         super.initData();
+        showFragment(0);
     }
 
     @Override
@@ -183,6 +187,45 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this); // 销毁Eventbus
+    }
+
+    public void showFragment(int index) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        hideFragment(ft);
+        switch (index) {
+            case 0: {
+                if(mPicFragment == null) {
+                    mPicFragment = new PicFragment();
+                    ft.add(R.id.fragment_content,mPicFragment);
+                }else {
+                    ft.show(mPicFragment);
+                }
+                break;
+            }
+//            case 1: {
+//                if(mTaskFragment == null) {
+//                    mTaskFragment = new TaskFragment();
+//                    ft.add(R.id.fragment_content,mTaskFragment);
+//                }else {
+//                    ft.show(mTaskFragment);
+//                }
+//                break;
+//            }
+            default:
+                break;
+        }
+        ft.commit();
+    }
+
+
+    public void hideFragment(FragmentTransaction ft){
+        //如果不为空，就先隐藏起来
+        if (mPicFragment!=null){
+            ft.hide(mPicFragment);
+        }
+//        if(mTaskFragment!=null) {
+//            ft.hide(mTaskFragment);
+//        }
     }
 
 }
