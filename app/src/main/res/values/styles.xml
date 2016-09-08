@@ -10,11 +10,15 @@
         <item name="windowNoTitle">true</item>
         <item name="android:textColorSecondary">@color/white</item>  <!-- 右上角三个图标的颜色 -->
     </style>
+    <style name="AppTheme.MyDrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">#000000</item>
+    </style>
 
     <style name="Toolbar">
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">?attr/colorPrimary</item>
+        <item name="drawerArrowStyle">@style/AppTheme.MyDrawerArrowStyle</item>
     </style>
 
     <!-- toolbar弹出菜单样式 -->

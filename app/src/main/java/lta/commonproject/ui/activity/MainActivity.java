@@ -2,15 +2,21 @@ package lta.commonproject.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -19,9 +25,10 @@ import org.greenrobot.eventbus.ThreadMode;
 import lta.commonproject.R;
 import lta.commonproject.data.entity.FirstEventbusEntity;
 import lta.commonproject.data.entity.SecondEventbusEntity;
+import lta.commonproject.ui.fragment.MPChartFragment;
 import lta.commonproject.ui.fragment.PicFragment;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener ,Toolbar.OnMenuItemClickListener{
+public class MainActivity extends BaseActivity implements View.OnClickListener, Toolbar.OnMenuItemClickListener {
     public static final String TAG = "MainActivity";
     private Context mContext;
     private Toolbar mToolbar;
@@ -30,6 +37,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
     private MenuItem mOldItem;
     private MenuItem mSearchMenu;
     private PicFragment mPicFragment;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private MPChartFragment mMpChartFragment; // 图标的Fragment
 
     /**
      * @Title:
@@ -39,7 +48,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
      * @throws:
      */
     public static void launch(Context context) {
-        Intent intent = new Intent(context,MainActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }
 
@@ -53,40 +62,39 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
     protected void initView() {
         super.initView();
         mContext = this;
-//        View view = findViewById(R.id.first_include);
-//        TextView textView1 = (TextView) view.findViewById(R.id.textView);
-//        textView1.setText("星期五");
-//        View view2 = findViewById(R.id.second_include);
-//        TextView textView2 = (TextView) view2.findViewById(R.id.textView2);
-//        textView2.setText("可能会下雨");
         mToolbar = (Toolbar) this.findViewById(R.id.tb);
-//        mToolbar.setTitle("第一个Toolbar"); // 设置主标题
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white)); //设置主标题颜色
-//        mToolbar.setTitleTextAppearance(); 设置字体大小
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
-            mToolbar.setNavigationIcon(R.mipmap.ic_menu_white);  // 设置导航栏图标
-//            mToolbar.setLogo(R.mipmap.ic_launcher); // 设置app logo
-            mToolbar.inflateMenu(R.menu.menu_main_right); // 设置右上角的填充菜单（貌似没作用啊！！！！）
-
+            final ActionBar supportActionBar = getSupportActionBar();
+            supportActionBar.setHomeButtonEnabled(true);
         }
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mDrawerLayout.openDrawer(mNavigationView);
-            }
-        });
-        mToolbar.setOnMenuItemClickListener(this);
-//        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(mContext, "点击", Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
+        mToolbar.setOnMenuItemClickListener(this);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.dl_main);
         mNavigationView = (NavigationView) findViewById(R.id.nv_left);
+//        if (mNavigationView != null) {
+//            mToolbar.setTitleTextColor(Color.WHITE);
+//            final Drawable navigationIcon = mToolbar.getNavigationIcon();
+//            if (navigationIcon != null) {
+//                navigationIcon.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+//                Log.e("lta", "******************************************");
+//            }
+//        }
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.app_name, R.string.app_name);
+        mDrawerToggle.syncState();
+
+        if (mNavigationView != null) {
+            mToolbar.setTitleTextColor(Color.WHITE);
+            final Drawable navigationIcon = mToolbar.getNavigationIcon();
+            if (navigationIcon != null) {
+                navigationIcon.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+                Log.e("lta", "******************************************");
+            }
+        }
+
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -98,6 +106,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                         Log.e(TAG, "---->>个人首页");
                         break;
                     case R.id.menu_main_all_home:
+                        showFragment(1);
                         Log.e(TAG, "---->>公共首页");
                         break;
                     case R.id.menu_main_info:
@@ -143,7 +152,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                 Toast.makeText(this, "查找按钮", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_share:
-                Intent intent = new Intent(MainActivity.this,ThirdActivity.class);
+                Intent intent = new Intent(MainActivity.this, ThirdActivity.class);
                 startActivity(intent);
                 Toast.makeText(this, "分享按钮", Toast.LENGTH_SHORT).show();
                 break;
@@ -194,23 +203,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
         hideFragment(ft);
         switch (index) {
             case 0: {
-                if(mPicFragment == null) {
+                if (mPicFragment == null) {
                     mPicFragment = new PicFragment();
-                    ft.add(R.id.fragment_content,mPicFragment);
-                }else {
+                    ft.add(R.id.fragment_content, mPicFragment);
+                } else {
                     ft.show(mPicFragment);
                 }
                 break;
             }
-//            case 1: {
-//                if(mTaskFragment == null) {
-//                    mTaskFragment = new TaskFragment();
-//                    ft.add(R.id.fragment_content,mTaskFragment);
-//                }else {
-//                    ft.show(mTaskFragment);
-//                }
-//                break;
-//            }
+            case 1: {
+                if(mMpChartFragment == null) {
+                    mMpChartFragment = new MPChartFragment();
+                    ft.add(R.id.fragment_content,mMpChartFragment);
+                }else {
+                    ft.show(mMpChartFragment);
+                }
+                break;
+            }
             default:
                 break;
         }
@@ -218,14 +227,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
     }
 
 
-    public void hideFragment(FragmentTransaction ft){
+    public void hideFragment(FragmentTransaction ft) {
         //如果不为空，就先隐藏起来
-        if (mPicFragment!=null){
+        if (mPicFragment != null) {
             ft.hide(mPicFragment);
         }
-//        if(mTaskFragment!=null) {
-//            ft.hide(mTaskFragment);
-//        }
+        if(mMpChartFragment!=null) {
+            ft.hide(mMpChartFragment);
+        }
     }
 
 }

@@ -6,7 +6,7 @@
             android:title="个人首页"></item>
         <item
             android:id="@+id/menu_main_all_home"
-            android:title="公共首页"></item>
+            android:title="MpAndroidChart"></item>
 
         <item
             android:id="@+id/menu_main_info"

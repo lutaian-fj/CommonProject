@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#40B8EE"
+            style="@style/Toolbar"
             toolbar:popupTheme="@style/ToolbarPopupTheme"
             toolbar:title="大杂烩">
 

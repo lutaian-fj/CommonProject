@@ -2,6 +2,12 @@
 
 buildscript {
     repositories {
+        maven {
+            url 'http://nexus.sdp.nd/nexus/content/groups/android-public/'
+        }
+        maven {
+            url "https://jitpack.io"
+        }
         jcenter()
     }
     dependencies {
@@ -14,6 +20,10 @@ buildscript {
 
 allprojects {
     repositories {
+        maven {
+            name 'nd nexus android-public'
+            url "http://nexus.sdp.nd/nexus/content/groups/android-public/"
+        }
         jcenter()
     }
 }

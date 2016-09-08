@@ -19,7 +19,7 @@ public class CommonUtil {
         AnimationDrawable animationDrawable = new AnimationDrawable();
         for (int i = 1; i <= 3; i++) {
             // 根据资源名称和目录获取R.java中对应的资源ID
-            int id = mContext.getResources().getIdentifier("images" + i, "mipmap",
+            int id = mContext.getResources().getIdentifier("splash" + i, "mipmap",
                     mContext.getPackageName());
             // 根据资源ID获取到Drawable对象
             Drawable drawable = mContext.getResources().getDrawable(id);
