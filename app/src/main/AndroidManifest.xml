@@ -20,7 +20,7 @@
         </activity>
         <activity
             android:name=".ui.activity.SecondActivity"
-            android:theme="@style/MyDialogStyles"></activity>
+            android:theme="@style/MyDialogStyles" />
 
         <service
             android:name=".ui.service.AppService"
@@ -30,7 +30,8 @@
         <activity android:name=".ui.activity.SlideActivity" />
         <activity android:name=".ui.activity.ThirdActivity" />
         <activity android:name=".ui.activity.LoginActivity" />
-        <activity android:name=".ui.activity.LineChartActivity"></activity>
+        <activity android:name=".ui.activity.LineChartActivity" />
+        <activity android:name=".ui.activity.PieChartActivity"></activity>
     </application>
 
 </manifest>

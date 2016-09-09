@@ -6,6 +6,7 @@ import android.widget.Button;
 
 import lta.commonproject.R;
 import lta.commonproject.ui.activity.LineChartActivity;
+import lta.commonproject.ui.activity.PieChartActivity;
 
 /**
  * @author: lutaian
@@ -44,7 +45,10 @@ public class MPChartFragment extends BaseFragment implements View.OnClickListene
         int id = view.getId();
         switch (id) {
             case R.id.btn_line_chart:
-                LineChartActivity.launch(getContext(),LineChartActivity.class);
+                LineChartActivity.launch(mContext,LineChartActivity.class);
+                break;
+            case R.id.btn_pie_chart:
+                PieChartActivity.launch(mContext,PieChartActivity.class);
                 break;
             default:
                 break;

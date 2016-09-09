@@ -3,7 +3,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/menu_main_my_home"
-            android:title="个人首页"></item>
+            android:title="图片框架"></item>
         <item
             android:id="@+id/menu_main_all_home"
             android:title="MpAndroidChart"></item>
