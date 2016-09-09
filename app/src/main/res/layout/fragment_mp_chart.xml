@@ -2,11 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_vertical"
     android:orientation="vertical">
-
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/lc_line_chart"
+    <Button
+        android:id="@+id/btn_line_chart"
         android:layout_width="match_parent"
-        android:layout_height="400dp"></com.github.mikephil.charting.charts.LineChart>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textAllCaps="false"
+        android:text="LineChart线性图标"/>
 
 </LinearLayout>

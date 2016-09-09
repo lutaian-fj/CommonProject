@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 /**
  * @author LTA
@@ -85,5 +86,27 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    /**
+     * @Title:
+     * @Description: 打印调试
+     * @param:
+     * @return:
+     * @throws:
+     */
+    public void outPut(String dsc,String str) {
+        Log.e("lta",dsc+":"+str);
+    }
+
+    /**
+     * @Title:
+     * @Description: 吐司调试
+     * @param:
+     * @return:
+     * @throws:
+     */
+    public void toast(String str) {
+        Toast.makeText(getActivity(),str,Toast.LENGTH_SHORT).show();
     }
 }
