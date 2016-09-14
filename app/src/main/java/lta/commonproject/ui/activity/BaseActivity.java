@@ -10,6 +10,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import lta.commonproject.common.ExitHandler;
+
 
 /**
  * 基础activity 类
@@ -18,6 +20,8 @@ import android.widget.Toast;
 public class BaseActivity extends AppCompatActivity {
 
     protected Application mApplication;
+    protected ExitHandler mExitHandler;
+    private final static int EXIT_TIME_DELAY = 1000;
 
     public static void launch(Context packageContext, Class<?> cls) {
         Intent intent = new Intent(packageContext,cls);
@@ -83,6 +87,40 @@ public class BaseActivity extends AppCompatActivity {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
+
+    /**
+     * @Title:  onDoubleBackEdit
+     * @Description:  双击退出
+     * @param:
+     * @return:
+     * @throws:
+     */
+    protected void onDoubleBackEdit() {
+        if(mExitHandler == null) {
+            mExitHandler = new ExitHandler();
+        }
+        if(mExitHandler.isBackClicked()) {
+            exitApp();
+        }else {
+            mExitHandler.sendEmptyMessage(ExitHandler.EXIT_MSG_WHAT);
+            mExitHandler.sendEmptyMessageDelayed(ExitHandler.EXIT_MSG_OUT_TIME_WHAT, EXIT_TIME_DELAY);
+            toast("再次点击返回键退出");
+        }
+    }
+
+    /**
+     * @Title: exitApp
+     * @Description: 退出应用
+     * @param:
+     * @return:
+     * @throws:
+     */
+    public void exitApp() {
+        finish();
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(0);
+
+    }
 
 }
 
