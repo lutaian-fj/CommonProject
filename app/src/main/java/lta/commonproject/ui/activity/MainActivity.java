@@ -157,7 +157,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 Toast.makeText(this, "分享按钮", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_settings:
-                Toast.makeText(this, "设置一", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "设置一", Toast.LENGTH_SHORT).show();
                 ViewPagerActivity.launch(this);
                 break;
             case R.id.action_settings_2:

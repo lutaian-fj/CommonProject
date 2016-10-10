@@ -18,7 +18,7 @@ public class ViewPagerActivity extends BaseActivity implements View.OnClickListe
     private List<String> data = new ArrayList<>();
     private Button mLeftBtn;
     private Button mRightBtn;
-    private int mCurentItem = 0;
+    private int mCurrentItem = 0;
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, ViewPagerActivity.class);
@@ -54,7 +54,7 @@ public class ViewPagerActivity extends BaseActivity implements View.OnClickListe
 
             @Override
             public void onPageSelected(int position) {
-                mCurentItem = position;
+                mCurrentItem = position;
             }
 
             @Override
@@ -77,12 +77,12 @@ public class ViewPagerActivity extends BaseActivity implements View.OnClickListe
         int id = v.getId();
         switch (id) {
             case R.id.btn_left:
-                if (mCurentItem > 0)
-                    mViewPager.setCurrentItem(mCurentItem - 1);
+                if (mCurrentItem > 0)
+                    mViewPager.setCurrentItem(mCurrentItem - 1);
                 break;
             case R.id.btn_right:
-                if (mCurentItem < data.size() - 1)
-                    mViewPager.setCurrentItem(mCurentItem + 1);
+                if (mCurrentItem < data.size() - 1)
+                    mViewPager.setCurrentItem(mCurrentItem + 1);
                 break;
             default:
                 break;
