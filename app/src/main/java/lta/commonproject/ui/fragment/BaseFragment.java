@@ -54,7 +54,6 @@ public abstract class BaseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         mTAG = getClassName();
         super.onCreate(savedInstanceState);
-        Log.e(TAG, "onCreate:" + this);
         onCreate();
     }
 
@@ -65,9 +64,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(initResource(), null);
-        Log.e(TAG, "onCreateView:"+this);
         initComponent(view);
-        Log.e(TAG, ""+this);
         return view;
     }
 

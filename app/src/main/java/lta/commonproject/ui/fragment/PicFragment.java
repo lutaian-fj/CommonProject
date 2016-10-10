@@ -1,14 +1,11 @@
 package lta.commonproject.ui.fragment;
 
 import android.graphics.drawable.AnimationDrawable;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-
-import java.io.File;
 
 import lta.commonproject.R;
 import lta.commonproject.utils.CommonUtil;
@@ -35,9 +32,8 @@ public class PicFragment extends BaseFragment {
 
     @Override
     public void initData() {
-//        String path = "http://desk.fd.zol-img.com.cn/t_s960x600c5/g5/M00/02/03/ChMkJ1bKxzGISBR1AALeECdcYq4AALHwQJMUXsAAt4o510.jpg\";
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator+
-                "Tencent/QQ_Images/1.jpg";
+        String path = "http://desk.fd.zol-img.com.cn/t_s960x600c5/g5/M00/02/03/ChMkJ1bKxzGISBR1AALeECdcYq4AALHwQJMUXsAAt4o510.jpg";
+//        String path = Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator+"Tencent/QQ_Images/1.jpg";
         Log.e("lta","Glide path is " + path);
         Glide.with(getActivity())
                 .load(path)
