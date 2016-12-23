@@ -27,6 +27,7 @@ import lta.commonproject.data.entity.FirstEventbusEntity;
 import lta.commonproject.data.entity.SecondEventbusEntity;
 import lta.commonproject.ui.fragment.MPChartFragment;
 import lta.commonproject.ui.fragment.PicFragment;
+import lta.commonproject.ui.fragment.RecyclerViewFragment;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, Toolbar.OnMenuItemClickListener {
     public static final String TAG = "MainActivity";
@@ -39,6 +40,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private PicFragment mPicFragment;
     private ActionBarDrawerToggle mDrawerToggle;
     private MPChartFragment mMpChartFragment; // 图标的Fragment
+    private RecyclerViewFragment mRecyleViewFragment;
 
     /**
      * @Title:
@@ -103,14 +105,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 switch (item.getItemId()) {
                     case R.id.menu_main_my_home:
                         showFragment(0);
-                        Log.e(TAG, "---->>个人首页");
                         break;
                     case R.id.menu_main_all_home:
                         showFragment(1);
-                        Log.e(TAG, "---->>公共首页");
                         break;
                     case R.id.menu_main_info:
-                        Log.e(TAG, "---->>个人信息");
+                        break;
+                    case R.id.menu_main_recyleView:
+                        showFragment(2);
                         break;
                     default:
                         break;
@@ -221,6 +223,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 }
                 break;
             }
+            case 2:
+                if(mRecyleViewFragment == null) {
+                    mRecyleViewFragment = new RecyclerViewFragment();
+                    ft.add(R.id.fragment_content,mRecyleViewFragment);
+                }else {
+                    ft.show(mRecyleViewFragment);
+                }
+                break;
             default:
                 break;
         }
@@ -233,8 +243,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         if (mPicFragment != null) {
             ft.hide(mPicFragment);
         }
-        if(mMpChartFragment!=null) {
+        if(mMpChartFragment != null) {
             ft.hide(mMpChartFragment);
+        }
+        if(mRecyleViewFragment != null) {
+            ft.hide(mRecyleViewFragment);
         }
     }
 

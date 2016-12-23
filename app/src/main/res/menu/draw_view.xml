@@ -7,10 +7,12 @@
         <item
             android:id="@+id/menu_main_all_home"
             android:title="MpAndroidChart"></item>
-
         <item
             android:id="@+id/menu_main_info"
             android:title="个人信息" />
+        <item
+            android:id="@+id/menu_main_recyleView"
+            android:title="RecyleView" />
     </group>
 
 </menu>
