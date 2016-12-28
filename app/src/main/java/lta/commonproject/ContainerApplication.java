@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 
+import lta.commonproject.data.config.ServerConfig;
 import lta.commonproject.utils.CrashHandler;
 
 /**
@@ -18,5 +19,6 @@ public class ContainerApplication extends Application {
         super.onCreate();
         Fresco.initialize(this);
         CrashHandler.getInstance().init(getApplicationContext());
+        ServerConfig.init();
     }
 }

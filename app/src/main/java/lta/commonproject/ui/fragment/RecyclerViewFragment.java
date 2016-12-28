@@ -6,15 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.jakewharton.rxbinding.support.v7.widget.RecyclerViewChildAttachStateChangeEvent;
-import com.jakewharton.rxbinding.support.v7.widget.RxRecyclerView;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import lta.commonproject.R;
+import lta.commonproject.data.DataStore;
+import lta.commonproject.data.entity.GankResultEntity;
 import lta.commonproject.ui.adapter.RecyclerAdapter;
-import rx.functions.Action1;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * @author: lutaian
@@ -41,17 +42,60 @@ public class RecyclerViewFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        data.add("天津");
-        data.add("北京");
-        data.add("福州");
-        data.add("厦门");
-        mRecyclerView.setAdapter(new RecyclerAdapter(mContext,data));
-        RxRecyclerView.childAttachStateChangeEvents(mRecyclerView).subscribe(new Action1<RecyclerViewChildAttachStateChangeEvent>() {
-            @Override
-            public void call(RecyclerViewChildAttachStateChangeEvent recyclerViewChildAttachStateChangeEvent) {
-                Log.e("lta","------------------------------");
-            }
-        });
+//        data.add("天津");
+//        data.add("北京");
+//        data.add("福州");
+//        data.add("厦门");
+//        mRecyclerView.setAdapter(new RecyclerAdapter(mContext,data));
+//        Observable.create(new Observable.OnSubscribe<String>() {
+//
+//            @Override
+//            public void call(Subscriber<? super String> subscriber) {
+//                subscriber.onNext("今天天气不错啊");
+//            }
+//        }).flatMap(new Func1<String,Observable<String>>() {
+//
+//            @Override
+//            public Observable<String> call(String s) {
+//                return Observable.from(data);
+//            }
+//        }).subscribe(new Subscriber<String>() {
+//            @Override
+//            public void onCompleted() {
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(String s) {
+//                Log.e("lta",s);
+//            }
+//        });
+        DataStore.getInstance().getAndroidData(1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<GankResultEntity>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.e("lta","------completed-------");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("lta","------error-------"+e.toString());
+                    }
+
+                    @Override
+                    public void onNext(GankResultEntity gankResultEntity) {
+                        Log.e("lta","-------------"+gankResultEntity.getResults().size());
+                        Log.e("lta","---------"+Thread.currentThread().getName());
+                        mRecyclerView.setAdapter(new RecyclerAdapter(mContext,gankResultEntity.getResults()));
+                    }
+                });
     }
 
     @Override

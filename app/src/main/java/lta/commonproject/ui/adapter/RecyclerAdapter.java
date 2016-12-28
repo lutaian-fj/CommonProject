@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lta.commonproject.R;
+import lta.commonproject.data.entity.ResultEntity;
 
 /**
  * @author: lutaian
@@ -21,10 +22,10 @@ import lta.commonproject.R;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
     private Context mContext;
-    private List<String> mData = new ArrayList<>();
+    private List<ResultEntity> mData = new ArrayList<>();
     private LayoutInflater mLayoutInflater;
 
-    public RecyclerAdapter(Context context,List<String> data) {
+    public RecyclerAdapter(Context context,List<ResultEntity> data) {
         mContext = context;
         mData.addAll(data);
         mLayoutInflater = LayoutInflater.from(context);
@@ -39,7 +40,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-        holder.mTitleTv.setText(mData.get(position));
+        holder.mTitleTv.setText(mData.get(position).getDesc());
     }
 
     @Override
