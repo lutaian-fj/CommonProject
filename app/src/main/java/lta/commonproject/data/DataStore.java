@@ -27,10 +27,15 @@ public class DataStore {
      * @throws:
      */
     public static DataStore getInstance() {
-        if (sInstance == null) {
-            sInstance = new DataStore();
-        }
-        return sInstance;
+//        if (sInstance == null) {
+//            sInstance = new DataStore();
+//        }
+//        return sInstance;
+        return DataStoreHolder.instance;
+    }
+
+    private static class DataStoreHolder {
+        private static final DataStore instance = new DataStore();
     }
 
     public static void releaseInstance() {

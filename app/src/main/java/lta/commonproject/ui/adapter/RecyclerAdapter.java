@@ -48,6 +48,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         return mData.size() == 0 ? 0 : mData.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
         public TextView mTitleTv;
