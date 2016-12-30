@@ -83,6 +83,17 @@ public class RecyclerViewFragment extends BaseFragment {
                         mRecyclerView.setAdapter(mRecyclerAdapter);
                     }
                 });
+
+        /********************定时器*************************/
+//        Observable.interval(1,2,TimeUnit.SECONDS)
+//                .map(new Func1<Long, Object>() {
+//
+//                    @Override
+//                    public Object call(Long aLong) {
+//                        Log.e("lta","定时操作");
+//                        return null;
+//                    }
+//                }).subscribe();
     }
 
     @Override

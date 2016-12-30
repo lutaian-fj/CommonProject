@@ -102,8 +102,7 @@ public class PicFragment extends BaseFragment {
 
                     @Override
                     public void onNext(String o) {
-                        Log.e("lta", o);
-
+//                        Log.e("lta", o);
                     }
                 }
         );
