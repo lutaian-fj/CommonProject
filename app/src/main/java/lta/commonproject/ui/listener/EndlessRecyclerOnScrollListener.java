@@ -6,8 +6,8 @@ import android.support.v7.widget.RecyclerView;
 
 /**
  * @author: LuTaiAn
- * @ClassName:
- * @Description:
+ * @ClassName: EndlessRecyclerOnScrollListener
+ * @Description: 用于RecyclerView上拉加载更多
  * @date: 2016/12/29
  */
 

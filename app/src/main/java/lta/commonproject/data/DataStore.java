@@ -1,7 +1,7 @@
 package lta.commonproject.data;
 
 import lta.commonproject.data.config.ServerConfig;
-import lta.commonproject.data.entity.GankResultEntity;
+import lta.commonproject.data.entity.PicResultEntity;
 import lta.commonproject.data.server.api.ObservableServerApi;
 import rx.Observable;
 
@@ -42,8 +42,8 @@ public class DataStore {
         sInstance = null;
     }
 
-    public Observable<GankResultEntity> getAndroidData(int page) {
-        Observable<GankResultEntity> result = mServerApi.getAndroidData(page);
+    public Observable<PicResultEntity> getAndroidData(int page) {
+        Observable<PicResultEntity> result = mServerApi.getAndroidData(10);
         return result;
     }
 }

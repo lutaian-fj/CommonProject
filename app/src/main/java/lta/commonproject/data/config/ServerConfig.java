@@ -122,13 +122,23 @@ public class ServerConfig {
 //                            return response;
 //                        }
 //                    })
+//                    .addInterceptor(new Interceptor() {
+//                        @Override
+//                        public Response intercept(Chain chain) throws IOException {
+//                            Request request = chain.request()
+//                                    .newBuilder()
+//                                    .addHeader("apikey","d5d7566b4e34657b7b9fc386a3687563")
+//                                    .build();
+//                            return chain.proceed(request);
+//                        }
+//                    })
                     .build();
         }
 
         if (mRetrofit == null) {
             mRetrofit = new Retrofit.Builder()
                     .client(mOkHttpClient)
-                    .baseUrl("http://gank.io/api/data/")
+                    .baseUrl("http://apis.baidu.com/")
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(mGson))
                     .build();

@@ -6,13 +6,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import lta.commonproject.R;
+import lta.commonproject.data.entity.PicItemEntity;
 import lta.commonproject.data.entity.ResultEntity;
 
 /**
@@ -24,10 +28,10 @@ import lta.commonproject.data.entity.ResultEntity;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
-    private List<ResultEntity> mData = new ArrayList<>();
+    private List<PicItemEntity> mData = new ArrayList<>();
     private LayoutInflater mLayoutInflater;
 
-    public RecyclerAdapter(Context context, List<ResultEntity> data) {
+    public RecyclerAdapter(Context context, List<PicItemEntity> data) {
         mContext = context;
         mData = data;
         mLayoutInflater = LayoutInflater.from(context);
@@ -51,8 +55,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if(holder instanceof FooterViewHolder) {
             ((FooterViewHolder)holder).mProgressBar.setProgress(0);
         }else if(holder instanceof RecyclerViewHolder) {
-            if (mData.get(position) != null)
-                ((RecyclerViewHolder)holder).mTitleTv.setText(mData.get(position).getDesc());
+            if (mData.get(position) != null) {
+                ((RecyclerViewHolder)holder).mTitleTv.setText(mData.get(position).getTitle());
+                Glide.with(mContext)
+                        .load(mData.get(position).getPicUrl())
+                        .into(((RecyclerViewHolder)holder).mPicIv);
+            }
         }
     }
 
@@ -80,10 +88,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
         public TextView mTitleTv;
-
+        public ImageView mPicIv;
         public RecyclerViewHolder(View itemView) {
             super(itemView);
             mTitleTv = (TextView) itemView.findViewById(R.id.tv_title);
+            mPicIv = (ImageView) itemView.findViewById(R.id.iv_pic);
         }
     }
 

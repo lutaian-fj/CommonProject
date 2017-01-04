@@ -1,8 +1,9 @@
 package lta.commonproject.data.server.api;
 
-import lta.commonproject.data.entity.GankResultEntity;
+import lta.commonproject.data.entity.PicResultEntity;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
+import retrofit2.http.Headers;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -13,6 +14,7 @@ import rx.Observable;
  */
 
 public interface ObservableServerApi {
-    @GET("all/20/{page}")
-    Observable<GankResultEntity> getAndroidData(@Path("page") int page);
+    @Headers("apikey:d5d7566b4e34657b7b9fc386a3687563")
+    @GET("txapi/mvtp/meinv")
+    Observable<PicResultEntity> getAndroidData(@Query("num") int page);
 }
