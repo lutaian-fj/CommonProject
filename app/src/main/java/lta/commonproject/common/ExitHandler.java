@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 
 /**
- * @author: lutaian
+ * @author: LuTaiAn
  * @ClassName:
  * @Description:
  * @date: 2016/9/14

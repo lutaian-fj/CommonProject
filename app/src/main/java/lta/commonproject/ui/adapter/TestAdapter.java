@@ -1,7 +1,7 @@
 package lta.commonproject.ui.adapter;
 
 /**
- * @author: lutaian
+ * @author: LuTaiAn
  * @ClassName:
  * @Description:
  * @date: 2016/7/28

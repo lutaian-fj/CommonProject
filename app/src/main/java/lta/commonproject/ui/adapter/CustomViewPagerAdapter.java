@@ -11,7 +11,7 @@ import java.util.List;
 import lta.commonproject.ui.fragment.CustomViewPagerFragment;
 
 /**
- * @author: lutaian
+ * @author: LuTaiAn
  * @ClassName:
  * @Description:
  * @date: 2016/10/9

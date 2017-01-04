@@ -6,7 +6,7 @@ import retrofit2.http.Path;
 import rx.Observable;
 
 /**
- * @author: lutaian
+ * @author: LuTaiAn
  * @ClassName:
  * @Description: 网络请求接口定义
  * @date: 2016/12/26

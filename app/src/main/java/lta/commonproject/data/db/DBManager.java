@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * @author: lutaian
+ * @author: LuTaiAn
  * @ClassName:
  * @Description:
  * @date: 2016/7/26

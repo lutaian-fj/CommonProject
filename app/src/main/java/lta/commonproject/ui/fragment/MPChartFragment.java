@@ -9,7 +9,7 @@ import lta.commonproject.ui.activity.LineChartActivity;
 import lta.commonproject.ui.activity.PieChartActivity;
 
 /**
- * @author: lutaian
+ * @author: LuTaiAn
  * @ClassName:
  * @Description:
  * @date: 2016/9/8

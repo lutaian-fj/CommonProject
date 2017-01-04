@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import lta.commonproject.R;
 
 /**
- * @author: lutaian
+ * @author: LuTaiAn
  * @ClassName:
  * @Description: 自定义LinearLayout
  * @date: 2016/8/22

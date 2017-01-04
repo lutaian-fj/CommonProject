@@ -5,7 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 /**
- * @author: lutaian
+ * @author: LuTaiAn
  * @ClassName:
  * @Description:
  * @date: 2016/12/29
@@ -32,7 +32,6 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
         totalItemCount = mLinearLayoutManager.getItemCount(); // 已经加载出来的数量
         firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition(); // 屏幕上可见的item的第一个
         lastVisibleItem = mLinearLayoutManager.findLastVisibleItemPosition();
-//        Log.e("lta","***************"+loading+"---"+visibleItemCount+"----"+totalItemCount+"----"+firstVisibleItem);
         if (loading) {
             if (totalItemCount > previousTotal) {
                 loading = false;

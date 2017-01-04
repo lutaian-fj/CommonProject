@@ -9,7 +9,7 @@ import android.view.MotionEvent;
 import android.widget.TextView;
 
 /**
- * @author: lutaian
+ * @author: LuTaiAn
  * @ClassName:
  * @Description:
  * @date: 2016/7/11

@@ -8,7 +8,7 @@ import lta.commonproject.data.config.ServerConfig;
 import lta.commonproject.utils.CrashHandler;
 
 /**
- * @author: lutaian
+ * @author: LuTaiAn
  * @ClassName:
  * @Description:
  * @date: 2016/7/31

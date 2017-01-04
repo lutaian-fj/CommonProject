@@ -6,7 +6,7 @@ import android.widget.TextView;
 import lta.commonproject.R;
 
 /**
- * @author: lutaian
+ * @author: LuTaiAn
  * @ClassName:
  * @Description:
  * @date: 2016/10/9

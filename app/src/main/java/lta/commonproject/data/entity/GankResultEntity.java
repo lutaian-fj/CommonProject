@@ -3,7 +3,7 @@ package lta.commonproject.data.entity;
 import java.util.List;
 
 /**
- * @author: lutaian
+ * @author: LuTaiAn
  * @ClassName:
  * @Description:
  * @date: 2016/12/26

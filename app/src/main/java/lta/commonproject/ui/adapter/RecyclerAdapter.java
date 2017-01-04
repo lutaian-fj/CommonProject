@@ -16,7 +16,7 @@ import lta.commonproject.R;
 import lta.commonproject.data.entity.ResultEntity;
 
 /**
- * @author: lutaian
+ * @author: LuTaiAn
  * @ClassName:
  * @Description:
  * @date: 2016/12/23

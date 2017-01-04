@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 import lta.commonproject.R;
 
 /**
- * @author: lutaian
+ * @author: LuTaiAn
  * @ClassName:
  * @Description:
  * @date: 2016/8/23
