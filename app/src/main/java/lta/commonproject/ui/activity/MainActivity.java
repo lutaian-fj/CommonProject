@@ -25,6 +25,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import lta.commonproject.R;
 import lta.commonproject.data.entity.FirstEventbusEntity;
 import lta.commonproject.data.entity.SecondEventbusEntity;
+import lta.commonproject.ui.fragment.ColFragment;
 import lta.commonproject.ui.fragment.MPChartFragment;
 import lta.commonproject.ui.fragment.PicFragment;
 import lta.commonproject.ui.fragment.RecyclerViewFragment;
@@ -41,6 +42,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private ActionBarDrawerToggle mDrawerToggle;
     private MPChartFragment mMpChartFragment; // 图标的Fragment
     private RecyclerViewFragment mRecyleViewFragment;
+    private ColFragment mColFragment;
 
     /**
      * @Title:
@@ -110,6 +112,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         showFragment(1);
                         break;
                     case R.id.menu_main_info:
+                        showFragment(3);
                         break;
                     case R.id.menu_main_recyleView:
                         showFragment(2);
@@ -231,6 +234,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     ft.show(mRecyleViewFragment);
                 }
                 break;
+            case 3:
+                if(mColFragment == null) {
+                    mColFragment = new ColFragment();
+                    ft.add(R.id.fragment_content,mColFragment);
+                }else {
+                    ft.show(mColFragment);
+                }
+                break;
+
             default:
                 break;
         }
