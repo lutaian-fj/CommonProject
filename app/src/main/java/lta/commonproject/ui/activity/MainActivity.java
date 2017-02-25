@@ -17,11 +17,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import lta.commonproject.R;
 import lta.commonproject.data.entity.FirstEventbusEntity;
 import lta.commonproject.data.entity.SecondEventbusEntity;
@@ -33,15 +34,15 @@ import lta.commonproject.ui.fragment.RecyclerViewFragment;
 public class MainActivity extends BaseActivity implements View.OnClickListener, Toolbar.OnMenuItemClickListener {
     public static final String TAG = "MainActivity";
     private Context mContext;
-    private Toolbar mToolbar;
-    private NavigationView mNavigationView;
-    private DrawerLayout mDrawerLayout;
+    @BindView(R.id.tb) Toolbar mToolbar;
+    @BindView(R.id.nv_left) NavigationView mNavigationView;
+    @BindView(R.id.dl_main) DrawerLayout mDrawerLayout;
     private MenuItem mOldItem;
     private MenuItem mSearchMenu;
     private PicFragment mPicFragment;
     private ActionBarDrawerToggle mDrawerToggle;
     private MPChartFragment mMpChartFragment; // 图标的Fragment
-    private RecyclerViewFragment mRecyleViewFragment;
+    private RecyclerViewFragment mRecycleViewFragment;
     private ColFragment mColFragment;
 
     /**
@@ -65,8 +66,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     protected void initView() {
         super.initView();
+        ButterKnife.bind(this);
         mContext = this;
-        mToolbar = (Toolbar) this.findViewById(R.id.tb);
+//        mToolbar = (Toolbar) this.findViewById(R.id.tb);
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white)); //设置主标题颜色
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
@@ -76,8 +78,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         mToolbar.setOnMenuItemClickListener(this);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.dl_main);
-        mNavigationView = (NavigationView) findViewById(R.id.nv_left);
+//        mDrawerLayout = (DrawerLayout) findViewById(R.id.dl_main);
+//        mNavigationView = (NavigationView) findViewById(R.id.nv_left);
 //        if (mNavigationView != null) {
 //            mToolbar.setTitleTextColor(Color.WHITE);
 //            final Drawable navigationIcon = mToolbar.getNavigationIcon();
@@ -166,7 +168,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 ViewPagerActivity.launch(this);
                 break;
             case R.id.action_settings_2:
-                Toast.makeText(this, "设置二", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "设置二", Toast.LENGTH_SHORT).show();
+                QRCodeActivity.launch(MainActivity.this);
                 break;
             default:
                 break;
@@ -227,11 +230,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             }
             case 2:
-                if(mRecyleViewFragment == null) {
-                    mRecyleViewFragment = new RecyclerViewFragment();
-                    ft.add(R.id.fragment_content,mRecyleViewFragment);
+                if(mRecycleViewFragment == null) {
+                    mRecycleViewFragment = new RecyclerViewFragment();
+                    ft.add(R.id.fragment_content,mRecycleViewFragment);
                 }else {
-                    ft.show(mRecyleViewFragment);
+                    ft.show(mRecycleViewFragment);
                 }
                 break;
             case 3:
@@ -258,8 +261,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         if(mMpChartFragment != null) {
             ft.hide(mMpChartFragment);
         }
-        if(mRecyleViewFragment != null) {
-            ft.hide(mRecyleViewFragment);
+        if(mRecycleViewFragment != null) {
+            ft.hide(mRecycleViewFragment);
+        }
+        if(mColFragment != null) {
+            ft.hide(mColFragment);
         }
     }
 
