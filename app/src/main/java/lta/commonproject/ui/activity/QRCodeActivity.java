@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.xys.libzxing.zxing.activity.CaptureActivity;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import lta.commonproject.R;
@@ -47,8 +50,8 @@ public class QRCodeActivity extends BaseActivity {
         mScanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(QRCodeActivity.this, CaptureActivity.class);
-//                startActivityForResult(intent, 1);
+                Intent intent = new Intent(QRCodeActivity.this, CaptureActivity.class);
+                startActivityForResult(intent, 1);
             }
         });
     }
