@@ -13,6 +13,9 @@
         <item
             android:id="@+id/menu_main_recyleView"
             android:title="RecyleView" />
+        <item
+            android:id="@+id/menu_animation"
+            android:title="Android动画效果" />
     </group>
 
 </menu>

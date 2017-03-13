@@ -26,6 +26,7 @@ import butterknife.ButterKnife;
 import lta.commonproject.R;
 import lta.commonproject.data.entity.FirstEventbusEntity;
 import lta.commonproject.data.entity.SecondEventbusEntity;
+import lta.commonproject.ui.fragment.AnimationFragment;
 import lta.commonproject.ui.fragment.ColFragment;
 import lta.commonproject.ui.fragment.MPChartFragment;
 import lta.commonproject.ui.fragment.PicFragment;
@@ -34,9 +35,12 @@ import lta.commonproject.ui.fragment.RecyclerViewFragment;
 public class MainActivity extends BaseActivity implements View.OnClickListener, Toolbar.OnMenuItemClickListener {
     public static final String TAG = "MainActivity";
     private Context mContext;
-    @BindView(R.id.tb) Toolbar mToolbar;
-    @BindView(R.id.nv_left) NavigationView mNavigationView;
-    @BindView(R.id.dl_main) DrawerLayout mDrawerLayout;
+    @BindView(R.id.tb)
+    Toolbar mToolbar;
+    @BindView(R.id.nv_left)
+    NavigationView mNavigationView;
+    @BindView(R.id.dl_main)
+    DrawerLayout mDrawerLayout;
     private MenuItem mOldItem;
     private MenuItem mSearchMenu;
     private PicFragment mPicFragment;
@@ -44,6 +48,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private MPChartFragment mMpChartFragment; // 图标的Fragment
     private RecyclerViewFragment mRecycleViewFragment;
     private ColFragment mColFragment;
+    private AnimationFragment mAnimationFragment; //动画的Fragment
 
     /**
      * @Title:
@@ -118,6 +123,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         break;
                     case R.id.menu_main_recyleView:
                         showFragment(2);
+                        break;
+                    case R.id.menu_animation:
+                        showFragment(4);
                         break;
                     default:
                         break;
@@ -221,29 +229,37 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             }
             case 1: {
-                if(mMpChartFragment == null) {
+                if (mMpChartFragment == null) {
                     mMpChartFragment = new MPChartFragment();
-                    ft.add(R.id.fragment_content,mMpChartFragment);
-                }else {
+                    ft.add(R.id.fragment_content, mMpChartFragment);
+                } else {
                     ft.show(mMpChartFragment);
                 }
                 break;
             }
             case 2:
-                if(mRecycleViewFragment == null) {
+                if (mRecycleViewFragment == null) {
                     mRecycleViewFragment = new RecyclerViewFragment();
-                    ft.add(R.id.fragment_content,mRecycleViewFragment);
-                }else {
+                    ft.add(R.id.fragment_content, mRecycleViewFragment);
+                } else {
                     ft.show(mRecycleViewFragment);
                 }
                 break;
             case 3:
-                if(mColFragment == null) {
+                if (mColFragment == null) {
                     mColFragment = new ColFragment();
-                    ft.add(R.id.fragment_content,mColFragment);
-                }else {
+                    ft.add(R.id.fragment_content, mColFragment);
+                } else {
                     ft.show(mColFragment);
                 }
+                break;
+            case 4:
+                if(mAnimationFragment == null) {
+                    mAnimationFragment = new AnimationFragment();
+                    ft.add(R.id.fragment_content,mAnimationFragment);
+                    break;
+                }
+                ft.show(mAnimationFragment);
                 break;
 
             default:
@@ -258,13 +274,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         if (mPicFragment != null) {
             ft.hide(mPicFragment);
         }
-        if(mMpChartFragment != null) {
+        if (mMpChartFragment != null) {
             ft.hide(mMpChartFragment);
         }
-        if(mRecycleViewFragment != null) {
+        if (mRecycleViewFragment != null) {
             ft.hide(mRecycleViewFragment);
         }
-        if(mColFragment != null) {
+        if (mColFragment != null) {
             ft.hide(mColFragment);
         }
     }

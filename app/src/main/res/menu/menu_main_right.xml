@@ -24,6 +24,6 @@
     <item
         android:id="@+id/action_settings_2"
         android:orderInCategory="100"
-        android:title="系统设置"
+        android:title="二维码"
         app:showAsAction="never" />
 </menu>

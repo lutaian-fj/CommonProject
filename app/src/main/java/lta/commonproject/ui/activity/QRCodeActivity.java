@@ -2,12 +2,16 @@ package lta.commonproject.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.xys.libzxing.zxing.activity.CaptureActivity;
+import com.xys.libzxing.zxing.encoding.EncodingUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,7 +23,12 @@ import lta.commonproject.R;
  * @author LuTaiAn
  */
 public class QRCodeActivity extends BaseActivity {
-    @BindView(R.id.btn_qr_code) Button mScanBtn; //扫描按钮
+    @BindView(R.id.btn_qr_code)
+    Button mScanBtn; //扫描按钮
+    @BindView(R.id.btn_create_qr_code)
+    Button mCreateBtn; //生成二维码
+    @BindView(R.id.iv_result)
+    ImageView mQRCodeIv; //生成的二维码
     /**
      * 入口方法
      * @param context
@@ -52,6 +61,15 @@ public class QRCodeActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(QRCodeActivity.this, CaptureActivity.class);
                 startActivityForResult(intent, 1);
+            }
+        });
+
+        mCreateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bitmap logo = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
+                Bitmap bitmap = EncodingUtils.createQRCode("第一个二维码图片",100,100,logo);
+                mQRCodeIv.setImageBitmap(bitmap);
             }
         });
     }
