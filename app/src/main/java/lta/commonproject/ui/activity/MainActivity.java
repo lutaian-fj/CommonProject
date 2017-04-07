@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     /**
      * @Title:
      * @Description: 入口方法
-     * @param:
+     * @param: context
      * @return:
      * @throws:
      */
